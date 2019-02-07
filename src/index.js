@@ -1,16 +1,29 @@
 import cc from './ccjs/cc';
 
-const WHITE = 'rgba(255,255,255, 0.7)';
-const BLACK = 'rgba(0,0,0, 0.9)';
-const BLACK_SOLID = 'rgb(25, 25, 25)';
-const RED = '#d63031';
-
 cc.setValue('viewport', {width: window.innerWidth, height: window.innerHeight});
 window.addEventListener('resize', function () {
     cc.updateValue('viewport', {width: window.innerWidth, height: window.innerHeight});
 });
-function index() {
+
+function setupSW() {
+    if('serviceWorker' in navigator) {
+        console.log('Service worker supported!');
+        try {
+            navigator.serviceWorker.register('service.js');
+            console.log('Service worker registered.')
+        } catch (e) {
+            console.log('Service worker failed to register. - WTH!?')
+        }
+    }else{
+        console.log('Service worker not supported! - Dude, buy a new phone.')
+    }
+}
+
+
+function start() {
+    setupSW();
     let root = cc.select('#body');
+    
 
 }
-index();
+start();
